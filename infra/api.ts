@@ -1,7 +1,7 @@
-import { bucket } from "./storage";
+import { Bucket } from "./storage";
 
-export const myApi = new sst.aws.Function("MyApi", {
+export const Api = new sst.aws.Function("MasterApi", {
   url: true,
-  link: [bucket],
-  handler: "packages/functions/src/api.handler"
+  link: [Bucket],
+  handler: "packages/functions/src/api.handler",
 });
