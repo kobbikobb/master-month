@@ -1,10 +1,9 @@
-export const Web = new sst.aws.StaticSite("MasterWeb", {
+import { Api } from "./api";
+
+export const Web = new sst.aws.React("MasterWeb", {
   path: "packages/web",
-  build: {
-    command: "npm run build",
-    output: "dist",
+  environment: {
+    API_URL: Api.url,
   },
-  dev: {
-    command: "npm run dev",
-  },
+  link: [Api],
 });

@@ -5,7 +5,7 @@
 
 declare module "sst" {
   export interface Resource {
-    "MasterAPI": {
+    "MasterApi": {
       "name": string
       "type": "sst.aws.Function"
       "url": string
@@ -15,7 +15,7 @@ declare module "sst" {
       "type": "sst.aws.Bucket"
     }
     "MasterWeb": {
-      "type": "sst.aws.StaticSite"
+      "type": "sst.aws.React"
       "url": string
     }
   }
