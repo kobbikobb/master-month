@@ -7,7 +7,7 @@
         "dev": "react-router dev",
         "start": "react-router-serve ./build/server/index.js",
         "typecheck": "react-router typegen && tsc",
-        "test": "echo 'No tests for web package yet'"
+        "test": "vitest run"
     },
     "dependencies": {
         "@react-router/node": "^7.9.2",
@@ -20,13 +20,17 @@
     "devDependencies": {
         "@react-router/dev": "^7.9.2",
         "@tailwindcss/vite": "^4.1.13",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.0",
         "@types/node": "^22",
         "@types/react": "^19.1.13",
         "@types/react-dom": "^19.1.9",
+        "jsdom": "^27.1.0",
         "rolldown": "^1.0.0-beta.41",
         "tailwindcss": "^4.1.13",
         "typescript": "^5.9.2",
         "vite": "^7.1.7",
-        "vite-tsconfig-paths": "^5.1.4"
+        "vite-tsconfig-paths": "^5.1.4",
+        "vitest": "^2.1.9"
     }
 }
