@@ -12,7 +12,8 @@
             "!!**/dist",
             "!!**/tsconfig.ts",
             "!!*.css",
-            "!!**/*.css"
+            "!!**/*.css",
+            "!!.claude"
         ],
         "ignoreUnknown": false
     },

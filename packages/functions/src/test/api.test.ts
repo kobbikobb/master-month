@@ -1,6 +1,5 @@
 import { expect, test, vi } from "vitest";
 
-// Mock SST Resource before importing the app
 vi.mock("sst", () => ({
     Resource: {
         MasterBucket: {
@@ -9,7 +8,6 @@ vi.mock("sst", () => ({
     },
 }));
 
-// Now import the actual app with mocked dependencies
 const { app } = await import("../api.js");
 
 test("GET / returns message and bucket", async () => {

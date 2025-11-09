@@ -8,10 +8,12 @@
     },
     "scripts": {
         "shell": "sst shell tsx",
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "test": "vitest run"
     },
     "devDependencies": {
         "@types/node": "^22",
-        "tsx": "^4"
+        "tsx": "^4",
+        "vitest": "^2.1.9"
     }
 }
