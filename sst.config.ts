@@ -14,9 +14,9 @@ export default $config({
     const { Api } = await import("./infra/api");
     const { Web } = await import("./infra/web");
     return {
-      MyBucket: Bucket.name,
-      ApiEndpoint: Api.url,
-      SiteUrl: Web.url,
+      MasterBucket: Bucket.name,
+      MasterApi: Api.url,
+      MasterWeb: Web.url,
     };
   },
 });

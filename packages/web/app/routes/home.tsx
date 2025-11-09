@@ -10,7 +10,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <>
-      <h1>This is my home</h1>
+      <h1>This is my home!!!</h1>
     </>
   );
 }
