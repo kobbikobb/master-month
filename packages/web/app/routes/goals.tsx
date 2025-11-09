@@ -1,20 +1,29 @@
+import { useLoaderData } from "react-router";
+
+interface ApiResponse {
+    message: string;
+    bucket: string;
+}
+
+export async function clientLoader() {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/`);
+    return res.json() as Promise<ApiResponse>;
+}
+
 export default function Goals() {
-    const fetchData = async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/`);
-        const data = await res.json();
-        alert(`Response from API: ${data.message} (Bucket: ${data.bucket})`);
-    };
+    const data = useLoaderData<typeof clientLoader>();
 
     return (
         <>
             <h1>Goals Page</h1>
-            <button
-                type="button"
-                onClick={() => fetchData()}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-                Fetch Data from API
-            </button>
+            <div className="mt-4 p-4 bg-gray-100 rounded">
+                <p>
+                    <strong>Message:</strong> {data.message}
+                </p>
+                <p>
+                    <strong>Bucket:</strong> {data.bucket}
+                </p>
+            </div>
         </>
     );
 }
