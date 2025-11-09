@@ -9,7 +9,11 @@
         "format": "biome format",
         "lint:fix": "biome check --write",
         "format:fix": "biome format --write",
-        "typecheck": "npm run typecheck --workspaces --if-present"
+        "typecheck": "npm run typecheck --workspaces --if-present",
+        "dev": "sst dev",
+        "build": "npm run build --workspaces --if-present",
+        "test": "npm run test --workspaces --if-present",
+        "deploy": "sst deploy"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.3.4",
