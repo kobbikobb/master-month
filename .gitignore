@@ -7,12 +7,16 @@ node_modules
 # tmp files
 .#*
 
-# env 
+# env
 .env*.local
 .env
 
 # opennext
 .open-next
+
+# typescript
+*.tsbuildinfo
+dist/
 
 # misc
 .DS_Store

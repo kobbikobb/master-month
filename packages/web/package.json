@@ -1,5 +1,5 @@
 {
-    "name": "packages-web",
+    "name": "@master-month/web",
     "private": true,
     "type": "module",
     "scripts": {
