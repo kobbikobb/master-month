@@ -25,5 +25,8 @@ jobs:
       - name: Build Frontend
         run: npm run build --workspace=packages/web
 
+      - name: Run TypeScript Check (All)
+        run: npm run typecheck
+
       - name: Run Biome Check (All)
         run: npx @biomejs/biome check .
