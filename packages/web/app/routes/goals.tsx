@@ -1,8 +1,8 @@
 export default function Goals() {
     const fetchData = async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/example`);
-        const data = await res.text();
-        alert(`Response from API: ${data}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/`);
+        const data = await res.json();
+        alert(`Response from API: ${data.message} (Bucket: ${data.bucket})`);
     };
 
     return (

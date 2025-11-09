@@ -1,10 +1,19 @@
 import { Example } from "@master-month/core/example";
-import type { Handler } from "aws-lambda";
+import { Hono } from "hono";
+import { handle } from "hono/aws-lambda";
 import { Resource } from "sst";
 
-export const handler: Handler = async (_event) => {
-    return {
-        statusCode: 200,
-        body: `${Example.hello()} Linked to ${Resource.MasterBucket.name}.`,
-    };
-};
+export const app = new Hono();
+
+app.get("/", (c) => {
+    return c.json({
+        message: Example.hello(),
+        bucket: Resource.MasterBucket.name,
+    });
+});
+
+app.get("/health", (c) => {
+    return c.json({ status: "ok" });
+});
+
+export const handler = handle(app);
