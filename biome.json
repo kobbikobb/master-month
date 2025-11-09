@@ -10,16 +10,18 @@
             "**",
             "!**/*.generated.js",
             "!!**/dist",
-            "!!**/tsconfig.ts"
+            "!!**/tsconfig.ts",
+            "!!*.css",
+            "!!**/*.css"
         ],
         "ignoreUnknown": false
     },
     "css": {
         "formatter": {
-            "enabled": true
+            "enabled": false
         },
         "linter": {
-            "enabled": true
+            "enabled": false
         }
     },
     "formatter": {
