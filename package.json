@@ -1,21 +1,21 @@
 {
-	"name": "master-month",
-	"version": "0.0.0",
-	"workspaces": [
-		"packages/*"
-	],
-	"scripts": {
-		"lint": "biome check",
-		"format": "biome format",
-		"lint:fix": "biome check --write",
-		"format:fix": "biome format --write"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.3.4",
-		"@tsconfig/node22": "^22",
-		"typescript": "^5"
-	},
-	"dependencies": {
-		"sst": "^3"
-	}
+    "name": "master-month",
+    "version": "0.0.0",
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "lint": "biome check",
+        "format": "biome format",
+        "lint:fix": "biome check --write",
+        "format:fix": "biome format --write"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.3.4",
+        "@tsconfig/node22": "^22",
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "sst": "^3"
+    }
 }
