@@ -3,13 +3,16 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "typecheck": "tsc"
+        "typecheck": "tsc",
+        "test": "vitest run"
     },
     "dependencies": {
         "@master-month/core": "*",
+        "hono": "^4.7.4",
         "sst": "*"
     },
     "devDependencies": {
-        "@types/aws-lambda": "^8"
+        "@types/aws-lambda": "^8",
+        "vitest": "^2.1.9"
     }
 }

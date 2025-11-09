@@ -3,7 +3,7 @@
     "type": "module",
     "version": "0.0.0",
     "scripts": {
-        "test": "sst shell vitest",
+        "test": "vitest run",
         "typecheck": "tsc"
     },
     "exports": {
