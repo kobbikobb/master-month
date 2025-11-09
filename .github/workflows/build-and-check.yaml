@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  biome:
-    name: Run Biome Checks
+  build-and-check:
+    name: Build and check
     runs-on: ubuntu-latest
 
     steps:
