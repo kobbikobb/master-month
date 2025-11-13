@@ -5,19 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "MasterApi": {
-      "name": string
-      "type": "sst.aws.Function"
-      "url": string
-    }
-    "MasterBucket": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
-    "MasterWeb": {
-      "type": "sst.aws.React"
-      "url": string
-    }
   }
 }
 /// <reference path="sst-env.d.ts" />
