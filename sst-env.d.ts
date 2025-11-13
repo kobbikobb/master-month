@@ -4,18 +4,23 @@
 /* deno-fmt-ignore-file */
 
 declare module "sst" {
-    export interface Resource {
-        MasterBucket: {
-            name: string;
-        };
-        MasterApi: {
-            url: string;
-        };
-        MasterWeb: {
-            url: string;
-        };
+  export interface Resource {
+    "MasterApi": {
+      "name": string
+      "type": "sst.aws.Function"
+      "url": string
     }
+    "MasterBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
+    "MasterWeb": {
+      "type": "sst.aws.React"
+      "url": string
+    }
+  }
 }
 /// <reference path="sst-env.d.ts" />
 
-import "sst";
+import "sst"
+export {}
