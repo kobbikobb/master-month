@@ -13,7 +13,8 @@
             "!!**/tsconfig.ts",
             "!!*.css",
             "!!**/*.css",
-            "!!.claude"
+            "!!.claude",
+            "!!**/sst-env.d.ts"
         ],
         "ignoreUnknown": false
     },
