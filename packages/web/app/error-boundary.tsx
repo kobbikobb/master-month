@@ -8,13 +8,9 @@ export function ErrorBoundary({ error }: { error: unknown }) {
 
     // Silently ignore browser/DevTools discovery requests
     if (isRouteErrorResponse(error) && error.status === 404) {
-        const ignoredPaths = [
-            "/.well-known/",
-            "/favicon.ico",
-            "/robots.txt",
-        ];
+        const ignoredPaths = ["/.well-known/", "/favicon.ico", "/robots.txt"];
 
-        if (ignoredPaths.some(path => location.pathname.startsWith(path))) {
+        if (ignoredPaths.some((path) => location.pathname.startsWith(path))) {
             return null;
         }
     }

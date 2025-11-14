@@ -1,7 +1,7 @@
 import { Example } from "@master-month/core/example";
 import { Hono } from "hono";
-import { cors } from "hono/cors";
 import { handle } from "hono/aws-lambda";
+import { cors } from "hono/cors";
 import { Resource } from "sst";
 
 export const app = new Hono();
