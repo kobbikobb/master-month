@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { ErrorBoundary } from "./error-boundry";
+import { ErrorBoundary } from "./error-boundary";
 import { Nav } from "./nav";
 
 export const errorBoundary = ErrorBoundary;
