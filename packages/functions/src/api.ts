@@ -1,9 +1,12 @@
 import { Example } from "@master-month/core/example";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { handle } from "hono/aws-lambda";
 import { Resource } from "sst";
 
 export const app = new Hono();
+
+app.use("/*", cors());
 
 app.get("/", (c) => {
     return c.json({
