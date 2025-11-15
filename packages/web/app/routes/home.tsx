@@ -1,10 +1,7 @@
-export function meta() {
-    return [
-        { title: "New React Router App" },
-        { name: "description", content: "Welcome to React Router!" },
-    ];
-}
-
 export default function Home() {
-    return <h1>This is my home!!!</h1>;
+    return (
+        <h1 className="text-3xl bg-red-50 font-bold underline">
+            Tips and tricks to get started!
+        </h1>
+    );
 }

@@ -11,7 +11,7 @@ vi.mock("sst", () => ({
 const { app } = await import("../api.js");
 
 test("GET / returns message and bucket", async () => {
-    const res = await app.request("/");
+    const res = await app.request("/goals");
     const data = await res.json();
 
     expect(res.status).toBe(200);

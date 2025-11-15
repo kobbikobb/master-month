@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import "./app.css";
 import { ErrorBoundary } from "./error-boundary";
 import { Nav } from "./nav";
 

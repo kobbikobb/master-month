@@ -6,9 +6,20 @@ import { Resource } from "sst";
 
 export const app = new Hono();
 
-app.use("/*", cors());
+app.use(
+    "*",
+    cors({
+        origin: (origin) => {
+            if (!origin || origin.startsWith("http://localhost:5173"))
+                return origin;
+            if (origin.startsWith("https://")) return origin;
+            return "";
+        },
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    }),
+);
 
-app.get("/", (c) => {
+app.get("/goals", (c) => {
     return c.json({
         message: Example.hello(),
         bucket: Resource.MasterBucket.name,
