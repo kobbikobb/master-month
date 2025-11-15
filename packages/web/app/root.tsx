@@ -9,7 +9,7 @@ export default function App() {
     return (
         <>
             <Nav />
-            <main className="pt-16">
+            <main className="pt-2">
                 <Outlet />
             </main>
         </>
