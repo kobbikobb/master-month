@@ -4,5 +4,7 @@ import Home from "../routes/home";
 
 test("Home page renders welcome message", () => {
     render(<Home />);
-    expect(screen.getByText("This is my home!!!")).toBeDefined();
+    expect(
+        screen.getByText("Tips and tricks to get started", { exact: false }),
+    ).toBeDefined();
 });
