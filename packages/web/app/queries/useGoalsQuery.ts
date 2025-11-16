@@ -1,35 +1,11 @@
+import type { Goal } from "@master-month/core/goals";
 import { useQuery } from "@tanstack/react-query";
 
-export interface Goal {
-    id: string;
-    title: string;
-    completed: boolean;
-    targetMonth: string;
-}
-
 const fetchGoals = async (): Promise<Goal[]> => {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    return [
-        {
-            id: "1",
-            title: "Exercise 5 times per week",
-            completed: false,
-            targetMonth: "2025-01",
-        },
-        {
-            id: "2",
-            title: "Read for 30 minutes daily",
-            completed: true,
-            targetMonth: "2025-01",
-        },
-        {
-            id: "3",
-            title: "Learn React Query",
-            completed: false,
-            targetMonth: "2025-01",
-        },
-    ];
+    const res = await fetch(`${import.meta.env.VITE_API_URL}goals`);
+    if (!res.ok) throw new Error("Failed to fetch goals");
+    const data = await res.json();
+    return data.goals;
 };
 
 export const useGoalsQuery = () => {

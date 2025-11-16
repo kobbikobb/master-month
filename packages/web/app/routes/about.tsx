@@ -1,8 +1,8 @@
 import { Card, PageContainer, PageHeader } from "../components";
 
 export default function About() {
-    const fetchData = async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}goals`);
+    const testFetchData = async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}test`);
         const data = await res.json();
         alert(`Response from API: ${data.message} (Bucket: ${data.bucket})`);
     };
@@ -48,7 +48,7 @@ export default function About() {
                     </p>
                     <button
                         type="button"
-                        onClick={() => fetchData()}
+                        onClick={() => testFetchData()}
                         className="px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium"
                     >
                         Fetch Data from API

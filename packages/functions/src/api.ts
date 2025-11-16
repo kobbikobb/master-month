@@ -1,4 +1,5 @@
 import { Example } from "@master-month/core/example";
+import { Goals } from "@master-month/core/goals";
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 import { cors } from "hono/cors";
@@ -20,6 +21,12 @@ app.use(
 );
 
 app.get("/goals", (c) => {
+    return c.json({
+        goals: Goals.getMockGoals(),
+    });
+});
+
+app.get("/test", (c) => {
     return c.json({
         message: Example.hello(),
         bucket: Resource.MasterBucket.name,
