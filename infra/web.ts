@@ -6,5 +6,8 @@ export const Web = new sst.aws.React("MasterWeb", {
         VITE_API_URL: Api.url,
     },
     link: [Api],
-    dev: { command: "npm run dev" },
+    dev: {
+        command: "npm run dev",
+    },
+    buildCommand: "npm run build",
 });
