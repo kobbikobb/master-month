@@ -1,11 +1,8 @@
-import { Card, PageContainer, PageHeader } from "../components";
+import { Card, GoalCard, PageContainer, PageHeader } from "../components";
+import { useGoalsQuery } from "../queries/useGoalsQuery";
 
 export default function Goals() {
-    const fetchData = async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}goals`);
-        const data = await res.json();
-        alert(`Response from API: ${data.message} (Bucket: ${data.bucket})`);
-    };
+    const { data: goals, isLoading, isError } = useGoalsQuery();
 
     return (
         <PageContainer>
@@ -15,31 +12,39 @@ export default function Goals() {
             />
 
             <div className="space-y-6">
-                <Card>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                        API Connection Test
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
-                        Test your connection to the backend API.
-                    </p>
-                    <button
-                        type="button"
-                        onClick={() => fetchData()}
-                        className="px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium"
-                    >
-                        Fetch Data from API
-                    </button>
-                </Card>
+                {isLoading && (
+                    <Card>
+                        <p className="text-gray-600 dark:text-gray-400">
+                            Loading goals...
+                        </p>
+                    </Card>
+                )}
 
-                <Card>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                        No Goals Yet
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400">
-                        Start by adding your first goal to begin your monthly
-                        journey.
-                    </p>
-                </Card>
+                {isError && (
+                    <Card>
+                        <p className="text-red-600 dark:text-red-400">
+                            Error loading goals. Please try again.
+                        </p>
+                    </Card>
+                )}
+
+                {!isLoading &&
+                    !isError &&
+                    goals &&
+                    goals.length > 0 &&
+                    goals.map((goal) => <GoalCard key={goal.id} goal={goal} />)}
+
+                {!isLoading && !isError && (!goals || goals.length === 0) && (
+                    <Card>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                            No Goals Yet
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400">
+                            Start by adding your first goal to begin your
+                            monthly journey.
+                        </p>
+                    </Card>
+                )}
             </div>
         </PageContainer>
     );

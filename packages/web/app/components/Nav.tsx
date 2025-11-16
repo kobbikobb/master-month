@@ -25,6 +25,13 @@ export const Nav = () => {
                 >
                     Goals
                 </NavLink>
+                <NavLink
+                    to="/about"
+                    className="[&.active]:font-bold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+                    end
+                >
+                    About
+                </NavLink>
             </nav>
         </div>
     );
