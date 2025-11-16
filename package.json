@@ -13,7 +13,8 @@
         "dev": "sst dev",
         "build": "npm run build --workspaces --if-present",
         "test": "npm run test --workspaces --if-present",
-        "deploy": "sst deploy"
+        "deploy": "sst deploy",
+        "check": "npm run format && npm run lint && npm run typecheck && npm run test"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.3.4",
