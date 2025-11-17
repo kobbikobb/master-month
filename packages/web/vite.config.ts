@@ -5,4 +5,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
     plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+    // @ts-expect-error - test config is added by vitest
+    test: {
+        globals: true,
+        environment: "jsdom",
+        setupFiles: "./vitest.setup.ts",
+    },
 });

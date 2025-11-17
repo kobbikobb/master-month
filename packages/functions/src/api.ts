@@ -26,6 +26,29 @@ app.get("/goals", (c) => {
     });
 });
 
+app.post("/goals", async (c) => {
+    const body = await c.req.json();
+    const { title, targetMonth } = body;
+
+    if (!title || typeof title !== "string" || title.trim() === "") {
+        return c.json({ error: "Title is required" }, 400);
+    }
+
+    if (
+        !targetMonth ||
+        typeof targetMonth !== "string" ||
+        !/^\d{4}-\d{2}$/.test(targetMonth)
+    ) {
+        return c.json(
+            { error: "Target month is required in YYYY-MM format" },
+            400,
+        );
+    }
+
+    const newGoal = Goals.createGoal(title.trim(), targetMonth);
+    return c.json({ goal: newGoal }, 201);
+});
+
 app.get("/test", (c) => {
     return c.json({
         message: Example.hello(),
