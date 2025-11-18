@@ -1,5 +1,9 @@
+export { Button } from "./Button";
 export { Card } from "./Card";
+export { ErrorMessage } from "./ErrorMessage";
 export { FeatureCard } from "./FeatureCard";
+export { GoalForm } from "./GoalForm";
+export { Input } from "./Input";
 export { Nav } from "./Nav";
 export { PageContainer } from "./PageContainer";
 export { PageHeader } from "./PageHeader";
