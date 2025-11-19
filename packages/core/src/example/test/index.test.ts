@@ -1,7 +1,7 @@
-import { expect, test } from "vitest";
+import { expect, it } from "vitest";
 import { Example } from "../";
 
-test("Hello test", () => {
+it("should return hello world message", () => {
     const expected = "Hello, world!";
 
     expect(Example.hello()).toEqual(expected);

@@ -1,45 +1,55 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+    DynamoDBDocumentClient,
+    PutCommand,
+    QueryCommand,
+} from "@aws-sdk/lib-dynamodb";
+import { Resource } from "sst";
+
+const client = DynamoDBDocumentClient.from(new DynamoDBClient());
+
 export interface Goal {
+    userId: string;
     id: string;
     title: string;
     targetMonth: string;
     status: "todo" | "done";
 }
 
-// In-memory store for demo purposes
-const goalsStore: Goal[] = [
-    {
-        id: "1",
-        title: "Exercise 5 times per week",
-        status: "todo",
-        targetMonth: "2025-01",
-    },
-    {
-        id: "2",
-        title: "Read for 30 minutes daily",
-        status: "done",
-        targetMonth: "2025-01",
-    },
-    {
-        id: "3",
-        title: "Learn React Query",
-        status: "todo",
-        targetMonth: "2025-01",
-    },
-];
-
 export namespace Goals {
-    export function getMockGoals(): Goal[] {
-        return goalsStore;
+    export async function getGoals(): Promise<Goal[]> {
+        const result = await client.send(
+            new QueryCommand({
+                TableName: Resource.GoalsTable.name,
+                KeyConditionExpression: "userId = :userId",
+                ExpressionAttributeValues: {
+                    ":userId": "my-user-id",
+                },
+            }),
+        );
+
+        return (result.Items || []) as Goal[];
     }
 
-    export function createGoal(title: string, targetMonth: string): Goal {
-        const newGoal: Goal = {
-            id: String(Math.random()),
+    export async function createGoal(
+        title: string,
+        targetMonth: string,
+    ): Promise<Goal> {
+        const goalInput: Goal = {
+            userId: "my-user-id",
+            id: crypto.randomUUID(),
             title,
             targetMonth,
             status: "todo",
         };
-        goalsStore.push(newGoal);
-        return newGoal;
+
+        await client.send(
+            new PutCommand({
+                TableName: Resource.GoalsTable.name,
+                Item: goalInput,
+            }),
+        );
+
+        return goalInput;
     }
 }

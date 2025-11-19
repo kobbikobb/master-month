@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "GoalsTable": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "MasterApi": {
       "name": string
       "type": "sst.aws.Function"

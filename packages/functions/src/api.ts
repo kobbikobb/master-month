@@ -20,9 +20,10 @@ app.use(
     }),
 );
 
-app.get("/goals", (c) => {
+app.get("/goals", async (c) => {
+    const goals = await Goals.getGoals();
     return c.json({
-        goals: Goals.getMockGoals(),
+        goals,
     });
 });
 
@@ -45,7 +46,7 @@ app.post("/goals", async (c) => {
         );
     }
 
-    const newGoal = Goals.createGoal(title.trim(), targetMonth);
+    const newGoal = await Goals.createGoal(title.trim(), targetMonth);
     return c.json({ goal: newGoal }, 201);
 });
 
