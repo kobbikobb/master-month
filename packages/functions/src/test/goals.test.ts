@@ -1,8 +1,7 @@
-import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
-import { mockClient } from "aws-sdk-client-mock";
-import { beforeEach, expect, it, vi } from "vitest";
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { expect, it, vi } from "vitest";
 
-// Mock SST BEFORE importing the API
+// Mock SST BEFORE any imports that depend on it
 vi.mock("sst", () => ({
     Resource: {
         GoalsTable: {
@@ -11,11 +10,9 @@ vi.mock("sst", () => ({
     },
 }));
 
-const ddbMock = mockClient(DynamoDBDocumentClient);
+import { setupDynamoDBMock } from "@master-month/core/test/helpers/dynamodb";
 
-beforeEach(() => {
-    ddbMock.reset();
-});
+const ddbMock = setupDynamoDBMock();
 
 const { app } = await import("../api.js");
 
