@@ -1,4 +1,4 @@
-import { expect, test, vi } from "vitest";
+import { expect, it, vi } from "vitest";
 
 // Mock SST Resource
 vi.mock("sst", () => ({
@@ -12,7 +12,7 @@ vi.mock("sst", () => ({
 // Mock console.log to capture output
 const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
-test("example script runs without errors", async () => {
+it("should run example script without errors", async () => {
     // Import the script (this will execute it)
     await import("../example.js");
 

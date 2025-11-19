@@ -1,8 +1,8 @@
-import { expect, test } from "vitest";
+import { expect, it } from "vitest";
 
 const { app } = await import("../api.js");
 
-test("GET /health should return ok status", async () => {
+it("should return ok status from GET /health", async () => {
     const res = await app.request("/health");
     const data = (await res.json()) as { status: string };
 

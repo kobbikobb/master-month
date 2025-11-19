@@ -1,4 +1,4 @@
-import { expect, test, vi } from "vitest";
+import { expect, it, vi } from "vitest";
 
 vi.mock("sst", () => ({
     Resource: {
@@ -10,7 +10,7 @@ vi.mock("sst", () => ({
 
 const { app } = await import("../api.js");
 
-test("GET /test should return message and bucket", async () => {
+it("should return message and bucket from GET /test", async () => {
     const res = await app.request("/test");
     const data = (await res.json()) as {
         message: string;

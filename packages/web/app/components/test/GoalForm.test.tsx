@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { GoalForm } from "../GoalForm";
 
 describe("GoalForm", () => {
-    test("renders form with all fields", () => {
+    it("should render form with all fields", () => {
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
 
@@ -18,7 +18,7 @@ describe("GoalForm", () => {
         expect(screen.getByRole("button", { name: /cancel/i })).toBeDefined();
     });
 
-    test("calls onSubmit with form data when submitted", async () => {
+    it("should call onSubmit with form data when submitted", async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn().mockResolvedValue(undefined);
         const onCancel = vi.fn();
@@ -41,7 +41,7 @@ describe("GoalForm", () => {
         });
     });
 
-    test("calls onCancel when cancel button is clicked", async () => {
+    it("should call onCancel when cancel button is clicked", async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
@@ -55,7 +55,7 @@ describe("GoalForm", () => {
         expect(onSubmit).not.toHaveBeenCalled();
     });
 
-    test("trims whitespace from title before submitting", async () => {
+    it("should trim whitespace from title before submitting", async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn().mockResolvedValue(undefined);
         const onCancel = vi.fn();
@@ -78,7 +78,7 @@ describe("GoalForm", () => {
         });
     });
 
-    test("displays error message when provided", () => {
+    it("should display error message when provided", () => {
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
         const errorMessage = "Something went wrong";
@@ -94,7 +94,7 @@ describe("GoalForm", () => {
         expect(screen.getByText(errorMessage)).toBeDefined();
     });
 
-    test("disables submit button when isSubmitting is true", () => {
+    it("should disable submit button when isSubmitting is true", () => {
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
 
@@ -112,7 +112,7 @@ describe("GoalForm", () => {
         expect(submitButton.disabled).toBe(true);
     });
 
-    test("changes button text when submitting", () => {
+    it("should change button text when submitting", () => {
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
 
@@ -135,7 +135,7 @@ describe("GoalForm", () => {
         expect(screen.getByRole("button", { name: /creating/i })).toBeDefined();
     });
 
-    test("does not submit when title is empty", async () => {
+    it("should not submit when title is empty", async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
@@ -153,7 +153,7 @@ describe("GoalForm", () => {
         expect(onSubmit).not.toHaveBeenCalled();
     });
 
-    test("does not submit when targetMonth is empty", async () => {
+    it("should not submit when targetMonth is empty", async () => {
         const user = userEvent.setup();
         const onSubmit = vi.fn();
         const onCancel = vi.fn();
