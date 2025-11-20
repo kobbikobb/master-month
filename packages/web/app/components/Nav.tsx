@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import { ThemeToggle } from "./ThemeToggle";
 
 export const Nav = () => {
     return (
@@ -11,7 +12,7 @@ export const Nav = () => {
                 </span>
             </h1>
 
-            <nav className="flex gap-4">
+            <nav className="flex gap-4 items-center">
                 <NavLink
                     to="/"
                     className="[&.active]:font-bold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
@@ -32,6 +33,7 @@ export const Nav = () => {
                 >
                     About
                 </NavLink>
+                <ThemeToggle />
             </nav>
         </div>
     );
