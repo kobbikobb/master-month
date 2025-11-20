@@ -7,3 +7,4 @@ export { Input } from "./Input";
 export { Nav } from "./Nav";
 export { PageContainer } from "./PageContainer";
 export { PageHeader } from "./PageHeader";
+export { ThemeToggle } from "./ThemeToggle";
