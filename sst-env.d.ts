@@ -14,6 +14,10 @@ declare module "sst" {
       "type": "sst.aws.Function"
       "url": string
     }
+    "MasterAuth": {
+      "type": "sst.aws.Auth"
+      "url": string
+    }
     "MasterBucket": {
       "name": string
       "type": "sst.aws.Bucket"

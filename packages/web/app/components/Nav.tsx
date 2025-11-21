@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import { Auth } from "./Auth";
 import { ThemeToggle } from "./ThemeToggle";
 
 export const Nav = () => {
@@ -11,7 +12,6 @@ export const Nav = () => {
                     — Create habits that stick by mastering one month at a time!
                 </span>
             </h1>
-
             <nav className="flex gap-4 items-center">
                 <NavLink
                     to="/"
@@ -34,6 +34,7 @@ export const Nav = () => {
                     About
                 </NavLink>
                 <ThemeToggle />
+                <Auth />
             </nav>
         </div>
     );
