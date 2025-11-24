@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "./app.css";
 import { Nav } from "./components";
+import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ErrorBoundary } from "./error-boundary";
 
@@ -57,12 +58,14 @@ export default function App() {
 
     return (
         <ThemeProvider>
-            <QueryClientProvider client={queryClient}>
-                <Nav />
-                <main className="pt-2">
-                    <Outlet />
-                </main>
-            </QueryClientProvider>
+            <AuthProvider>
+                <QueryClientProvider client={queryClient}>
+                    <Nav />
+                    <main className="pt-2">
+                        <Outlet />
+                    </main>
+                </QueryClientProvider>
+            </AuthProvider>
         </ThemeProvider>
     );
 }

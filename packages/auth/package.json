@@ -1,0 +1,22 @@
+{
+    "name": "@master-month/auth",
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./client": "./src/client.ts"
+    },
+    "scripts": {
+        "typecheck": "tsc",
+        "test": "vitest run"
+    },
+    "dependencies": {
+        "@openauthjs/openauth": "latest",
+        "hono": "latest",
+        "valibot": "latest"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8",
+        "vitest": "^2.1.9"
+    }
+}

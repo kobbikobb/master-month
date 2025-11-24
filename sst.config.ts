@@ -13,11 +13,14 @@ export default $config({
         const { Bucket, GoalsTable } = await import("./infra/storage");
         const { Api } = await import("./infra/api");
         const { Web } = await import("./infra/web");
+        const { Auth } = await import("./infra/auth");
+
         return {
             MasterBucket: Bucket.name,
             MasterGoalsTable: GoalsTable.name,
             MasterApi: Api.url,
             MasterWeb: Web.url,
+            MasterAuth: Auth.url,
         };
     },
 });
