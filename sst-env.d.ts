@@ -9,13 +9,21 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
+    "KindeClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "KindeClientSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "KindeDomain": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "MasterApi": {
       "name": string
       "type": "sst.aws.Function"
-      "url": string
-    }
-    "MasterAuth": {
-      "type": "sst.aws.Auth"
       "url": string
     }
     "MasterBucket": {

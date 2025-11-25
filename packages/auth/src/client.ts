@@ -1,1 +1,0 @@
-export { subjects } from "./subjects";

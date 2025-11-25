@@ -17,13 +17,13 @@ export interface Goal {
 }
 
 export namespace Goals {
-    export async function getGoals(): Promise<Goal[]> {
+    export async function getGoals(userId: string): Promise<Goal[]> {
         const result = await client.send(
             new QueryCommand({
                 TableName: Resource.GoalsTable.name,
                 KeyConditionExpression: "userId = :userId",
                 ExpressionAttributeValues: {
-                    ":userId": "my-user-id",
+                    ":userId": userId,
                 },
             }),
         );
@@ -32,11 +32,12 @@ export namespace Goals {
     }
 
     export async function createGoal(
+        userId: string,
         title: string,
         targetMonth: string,
     ): Promise<Goal> {
         const goalInput: Goal = {
-            userId: "my-user-id",
+            userId,
             id: crypto.randomUUID(),
             title,
             targetMonth,

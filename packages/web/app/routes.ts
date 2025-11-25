@@ -13,4 +13,5 @@ export default [
     ]),
     route("about", "routes/about.tsx"),
     route("callback", "routes/callback.tsx"),
+    route(".well-known/*", "routes/.well-known.tsx"),
 ] satisfies RouteConfig;

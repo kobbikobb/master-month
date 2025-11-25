@@ -11,16 +11,26 @@ export default $config({
     },
     async run() {
         const { Bucket, GoalsTable } = await import("./infra/storage");
-        const { Api } = await import("./infra/api");
-        const { Web } = await import("./infra/web");
-        const { Auth } = await import("./infra/auth");
+        const { createApi } = await import("./infra/api");
+        const { createWeb } = await import("./infra/web");
+
+        const Api = await createApi(
+            process.env.KINDE_CLIENT_ID,
+            process.env.KINDE_DOMAIN,
+            process.env.KINDE_CLIENT_SECRET,
+        );
+
+        const Web = await createWeb(
+            Api,
+            process.env.KINDE_CLIENT_ID,
+            process.env.KINDE_DOMAIN,
+        );
 
         return {
             MasterBucket: Bucket.name,
             MasterGoalsTable: GoalsTable.name,
             MasterApi: Api.url,
             MasterWeb: Web.url,
-            MasterAuth: Auth.url,
         };
     },
 });

@@ -1,5 +1,6 @@
 import type { Goal } from "@master-month/core/goals";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../contexts/AuthContext";
 
 interface CreateGoalInput {
     title: string;
@@ -13,13 +14,16 @@ interface CreateGoalResponse {
 export function useCreateGoalMutation() {
     const queryClient = useQueryClient();
     const apiUrl = import.meta.env.VITE_API_URL;
+    const { getAccessToken } = useAuth();
 
     return useMutation({
         mutationFn: async (input: CreateGoalInput): Promise<Goal> => {
+            const token = await getAccessToken();
             const response = await fetch(`${apiUrl}goals`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(input),
             });
