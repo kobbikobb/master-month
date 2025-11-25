@@ -10,6 +10,14 @@ vi.mock("sst", () => ({
     },
 }));
 
+// Mock the auth middleware to inject userId
+vi.mock("../middleware/auth.js", () => ({
+    authMiddleware: vi.fn(async (c, next) => {
+        c.set("userId", "test-user-id");
+        await next();
+    }),
+}));
+
 import { setupDynamoDBMock } from "@master-month/core/test/helpers/dynamodb";
 
 const ddbMock = setupDynamoDBMock();
@@ -20,7 +28,7 @@ it("should return goals from GET /goals", async () => {
     ddbMock.on(QueryCommand).resolves({
         Items: [
             {
-                userId: "my-user-id",
+                userId: "test-user-id",
                 id: "1",
                 title: "Test Goal",
                 targetMonth: "2025-12",

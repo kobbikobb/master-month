@@ -7,8 +7,10 @@
         "test": "vitest run"
     },
     "dependencies": {
+        "@kinde-oss/kinde-typescript-sdk": "^2.13.0",
         "@master-month/core": "*",
         "hono": "^4.7.4",
+        "jose": "^5.2.3",
         "sst": "*"
     },
     "devDependencies": {

@@ -21,7 +21,7 @@ describe("Goals", () => {
         ddbMock.on(QueryCommand).resolves({
             Items: [
                 {
-                    userId: "my-user-id",
+                    userId: "test-user-id",
                     id: "1",
                     title: "Test Goal",
                     targetMonth: "2025-12",
@@ -30,7 +30,7 @@ describe("Goals", () => {
             ],
         });
 
-        const goals = await Goals.getGoals();
+        const goals = await Goals.getGoals("test-user-id");
 
         expect(goals).toHaveLength(1);
         expect(goals[0].title).toBe("Test Goal");
@@ -39,7 +39,11 @@ describe("Goals", () => {
     it("should add goal", async () => {
         ddbMock.on(PutCommand).resolves({});
 
-        const goal = await Goals.createGoal("New Goal", "2025-12");
+        const goal = await Goals.createGoal(
+            "test-user-id",
+            "New Goal",
+            "2025-12",
+        );
 
         expect(goal.title).toBe("New Goal");
         expect(goal.targetMonth).toBe("2025-12");

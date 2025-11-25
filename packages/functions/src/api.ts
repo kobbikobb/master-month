@@ -4,8 +4,14 @@ import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 import { cors } from "hono/cors";
 import { Resource } from "sst";
+import { authMiddleware } from "./middleware/auth";
 
-export const app = new Hono();
+type Variables = {
+    userId: string;
+    userEmail?: string;
+};
+
+export const app = new Hono<{ Variables: Variables }>();
 
 app.use(
     "*",
@@ -17,17 +23,24 @@ app.use(
             return "";
         },
         allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type", "Authorization"],
     }),
 );
 
+// Protected routes - require authentication
+app.use("/goals/*", authMiddleware);
+app.use("/goals", authMiddleware);
+
 app.get("/goals", async (c) => {
-    const goals = await Goals.getGoals();
+    const userId = c.get("userId");
+    const goals = await Goals.getGoals(userId);
     return c.json({
         goals,
     });
 });
 
 app.post("/goals", async (c) => {
+    const userId = c.get("userId");
     const body = await c.req.json();
     const { title, targetMonth } = body;
 
@@ -46,10 +59,11 @@ app.post("/goals", async (c) => {
         );
     }
 
-    const newGoal = await Goals.createGoal(title.trim(), targetMonth);
+    const newGoal = await Goals.createGoal(userId, title.trim(), targetMonth);
     return c.json({ goal: newGoal }, 201);
 });
 
+// Public routes
 app.get("/test", (c) => {
     return c.json({
         message: Example.hello(),
