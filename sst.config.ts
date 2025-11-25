@@ -14,6 +14,7 @@ export default $config({
         const { Api } = await import("./infra/api");
         const { Web } = await import("./infra/web");
         const { Auth } = await import("./infra/auth");
+        const { Secrets } = await import("./infra/secrets");
 
         return {
             MasterBucket: Bucket.name,
@@ -21,6 +22,7 @@ export default $config({
             MasterApi: Api.url,
             MasterWeb: Web.url,
             MasterAuth: Auth.url,
+            MasterSecrets: { Secrets },
         };
     },
 });
