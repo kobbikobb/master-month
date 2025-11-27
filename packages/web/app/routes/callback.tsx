@@ -1,39 +1,20 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-import { getClient, setTokens } from "../lib/auth";
+import { useAuthCallback } from "../hooks/useAuthCallback";
 
 export default function Callback() {
-    const navigate = useNavigate();
+    const { error } = useAuthCallback();
 
-    useEffect(() => {
-        const code = new URLSearchParams(window.location.search).get("code");
-
-        if (!code) {
-            navigate("/");
-            return;
-        }
-
-        getClient()
-            .exchange(code, `${window.location.origin}/callback`)
-            .then((exchanged) => {
-                if ("err" in exchanged && exchanged.err) {
-                    console.error("Exchange error:", exchanged.err);
-                    navigate("/");
-                    return;
-                }
-                if ("tokens" in exchanged) {
-                    setTokens(
-                        exchanged.tokens.access,
-                        exchanged.tokens.refresh,
-                    );
-                }
-                navigate("/");
-            })
-            .catch((error: Error) => {
-                console.error("Callback error:", error);
-                navigate("/");
-            });
-    }, [navigate]);
-
-    return null;
+    return (
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center">
+                <h2 className="text-2xl font-semibold mb-4">
+                    {error
+                        ? "Authentication Error"
+                        : "Completing authentication..."}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
+                    {error || "Please wait while we log you in."}
+                </p>
+            </div>
+        </div>
+    );
 }

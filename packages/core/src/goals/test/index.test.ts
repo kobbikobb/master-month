@@ -30,7 +30,7 @@ describe("Goals", () => {
             ],
         });
 
-        const goals = await Goals.getGoals();
+        const goals = await Goals.getGoals("my-user-id");
 
         expect(goals).toHaveLength(1);
         expect(goals[0].title).toBe("Test Goal");
@@ -39,7 +39,11 @@ describe("Goals", () => {
     it("should add goal", async () => {
         ddbMock.on(PutCommand).resolves({});
 
-        const goal = await Goals.createGoal("New Goal", "2025-12");
+        const goal = await Goals.createGoal(
+            "my-user-id",
+            "New Goal",
+            "2025-12",
+        );
 
         expect(goal.title).toBe("New Goal");
         expect(goal.targetMonth).toBe("2025-12");

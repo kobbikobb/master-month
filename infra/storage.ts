@@ -1,4 +1,6 @@
-export const Bucket = new sst.aws.Bucket("MasterBucket");
+export const Bucket = new sst.aws.Bucket("MasterBucket", {
+    access: "public",
+});
 
 export const GoalsTable = new sst.aws.Dynamo("GoalsTable", {
     fields: {
