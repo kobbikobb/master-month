@@ -1,39 +1,20 @@
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import type { Goal } from "@master-month/core/goals";
+import {
+    createTestJWT,
+    getDynamoDBMock,
+    joseMock,
+    setupKindeEnv,
+    sstMock,
+} from "@master-month/core/test/helpers";
 import { describe, expect, it, vi } from "vitest";
 
-// Set environment variables BEFORE imports
-process.env.KINDE_DOMAIN = "https://test.kinde.com";
-process.env.KINDE_CLIENT_ID = "test-client-id";
+vi.mock("sst", () => sstMock);
+vi.mock("jose", () => joseMock);
+setupKindeEnv();
+const ddbMock = getDynamoDBMock();
 
-// Helper to create a valid JWT token for testing
-// Our middleware only decodes (doesn't verify), so we just need valid structure
-function createTestJWT(payload: object): string {
-    const header = { alg: "RS256", typ: "JWT" };
-    const encodedHeader = Buffer.from(JSON.stringify(header)).toString(
-        "base64url",
-    );
-    const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(
-        "base64url",
-    );
-    const signature = "test-signature";
-    return `${encodedHeader}.${encodedPayload}.${signature}`;
-}
-
-// Mock SST BEFORE any imports that depend on it
-vi.mock("sst", () => ({
-    Resource: {
-        GoalsTable: {
-            name: "GoalsTable",
-        },
-    },
-}));
-
-import { setupDynamoDBMock } from "@master-month/core/test/helpers/dynamodb";
-
-const ddbMock = setupDynamoDBMock();
-
-import { app } from "../api";
+const { app } = await import("../api");
 
 describe("POST /goals", () => {
     describe("validation", () => {

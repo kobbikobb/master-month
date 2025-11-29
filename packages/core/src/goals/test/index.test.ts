@@ -1,18 +1,13 @@
 import { PutCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { describe, expect, it, vi } from "vitest";
 
-// Mock SST BEFORE any imports that depend on it
-vi.mock("sst", () => ({
-    Resource: {
-        GoalsTable: {
-            name: "GoalsTable",
-        },
-    },
-}));
+import { sstMock } from "../../test/helpers/mocks";
 
-import { setupDynamoDBMock } from "../../test/helpers/dynamodb";
+vi.mock("sst", () => sstMock);
 
-const ddbMock = setupDynamoDBMock();
+import { getDynamoDBMock } from "../../test/helpers/dynamodb";
+
+const ddbMock = getDynamoDBMock();
 
 import { Goals } from "../index";
 

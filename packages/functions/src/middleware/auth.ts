@@ -1,7 +1,10 @@
 import type { Context, Next } from "hono";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 
 export interface AuthContext {
     userId: string;
+    email?: string;
+    orgCode?: string;
 }
 
 // Extend Hono's context to include our auth variables
@@ -11,25 +14,31 @@ declare module "hono" {
     }
 }
 
-interface JWTPayload {
+interface KindeJWTPayload {
     sub: string;
     email?: string;
+    org_code?: string;
+    aud: string[];
+    iss: string;
     [key: string]: unknown;
 }
 
-// TODO: Use Kinde's public key
-function decodeJWT(token: string): JWTPayload {
+// Cache the JWKS for better performance
+const JWKS = createRemoteJWKSet(
+    new URL(`${process.env.KINDE_DOMAIN}/.well-known/jwks.json`),
+);
+
+async function verifyKindeToken(token: string): Promise<KindeJWTPayload> {
     try {
-        const parts = token.split(".");
-        if (parts.length !== 3) {
-            throw new Error("Invalid JWT format");
-        }
-        const payload = JSON.parse(
-            Buffer.from(parts[1], "base64url").toString(),
-        );
-        return payload;
-    } catch {
-        throw new Error("Failed to decode JWT");
+        const { payload } = await jwtVerify(token, JWKS, {
+            issuer: process.env.KINDE_DOMAIN,
+            audience: process.env.KINDE_AUDIENCE, // Your API identifier
+        });
+
+        return payload as KindeJWTPayload;
+    } catch (error) {
+        console.error("JWT verification failed:", error);
+        throw new Error("Invalid or expired token");
     }
 }
 
@@ -43,25 +52,15 @@ export const authMiddleware = async (c: Context, next: Next) => {
     const token = authHeader.substring(7); // Remove "Bearer " prefix
 
     try {
-        // Decode the JWT to get user info
-        // Note: In production, you should verify the signature
-        const decoded = decodeJWT(token);
+        const decoded = await verifyKindeToken(token);
 
-        if (!decoded || !decoded.sub) {
-            return c.json({ error: "Unauthorized: Invalid token" }, 401);
-        }
+        console.log("Decoded JWT payload:", decoded);
 
-        // Log user authentication
-        console.log("User authenticated:", {
+        c.set("auth", {
             userId: decoded.sub,
-            email: decoded.email || "N/A",
-            method: c.req.method,
-            path: c.req.path,
-            timestamp: new Date().toISOString(),
+            email: decoded.email,
+            orgCode: decoded.org_code,
         });
-
-        // Set the authenticated user ID in context
-        c.set("auth", { userId: decoded.sub });
 
         await next();
     } catch (error) {

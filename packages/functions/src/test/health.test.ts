@@ -1,4 +1,7 @@
+import { setupKindeEnv } from "@master-month/core/test/helpers";
 import { expect, it } from "vitest";
+
+setupKindeEnv();
 
 const { app } = await import("../api.js");
 

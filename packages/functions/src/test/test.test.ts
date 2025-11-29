@@ -1,4 +1,7 @@
+import { setupKindeEnv } from "@master-month/core/test/helpers";
 import { expect, it, vi } from "vitest";
+
+setupKindeEnv();
 
 vi.mock("sst", () => ({
     Resource: {
