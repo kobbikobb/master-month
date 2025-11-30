@@ -1,8 +1,10 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
+    GetCommand,
     PutCommand,
     QueryCommand,
+    UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 import { Resource } from "sst";
 
@@ -52,5 +54,46 @@ export namespace Goals {
         );
 
         return goalInput;
+    }
+
+    export async function findGoalById(
+        id: string,
+        userId: string,
+    ): Promise<Goal | null> {
+        const result = await client.send(
+            new GetCommand({
+                TableName: Resource.GoalsTable.name,
+                Key: {
+                    userId: userId,
+                    id: id,
+                },
+            }),
+        );
+
+        return result.Item ? (result.Item as Goal) : null;
+    }
+    export async function updateGoal(
+        id: string,
+        userId: string,
+        status: "todo" | "done",
+    ): Promise<Goal> {
+        const result = await client.send(
+            new UpdateCommand({
+                TableName: Resource.GoalsTable.name,
+                Key: {
+                    userId: userId,
+                    id: id,
+                },
+                UpdateExpression: "SET #status = :status",
+                ExpressionAttributeNames: {
+                    "#status": "status",
+                },
+                ExpressionAttributeValues: {
+                    ":status": status,
+                },
+                ReturnValues: "ALL_NEW",
+            }),
+        );
+        return result.Attributes as Goal;
     }
 }
