@@ -1,4 +1,4 @@
-import { Bucket, GoalsTable } from "./storage";
+import { GoalsTable } from "./storage";
 
 export function createApi(
     kindeClientId: string,
@@ -12,7 +12,7 @@ export function createApi(
     }
 
     return new sst.aws.Function("MasterApi", {
-        link: [Bucket, GoalsTable],
+        link: [GoalsTable],
         handler: "packages/functions/src/api.handler",
         environment: {
             KINDE_CLIENT_ID: kindeClientId,
