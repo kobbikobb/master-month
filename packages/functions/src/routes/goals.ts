@@ -35,3 +35,26 @@ goalsRoutes.post("/goals", authMiddleware, async (c) => {
     const newGoal = await Goals.createGoal(userId, title.trim(), targetMonth);
     return c.json({ goal: newGoal }, 201);
 });
+
+goalsRoutes.put("/goals/:id", authMiddleware, async (c) => {
+    console.log("Received request to update goal");
+    const id = c.req.param("id");
+    const { userId } = c.get("auth");
+    const body = await c.req.json();
+    const { status } = body;
+
+    if (!id || typeof id !== "string") {
+        return c.json({ error: "Goal ID is required" }, 400);
+    }
+    if (!status || (status !== "todo" && status !== "done")) {
+        return c.json({ error: "Status must be either 'todo' or 'done'" }, 400);
+    }
+
+    const existingGoal = await Goals.findGoalById(id, userId);
+    if (!existingGoal) {
+        return c.json({ error: "Goal not found" }, 404);
+    }
+
+    const updatedGoal = await Goals.updateGoal(id, userId, status);
+    return c.json({ goal: updatedGoal }, 200);
+});
