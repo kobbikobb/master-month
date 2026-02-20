@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@master-month/core": "*",
-        "hono": "^4.7.4",
+        "hono": "^4.11.10",
         "jose": "^6.1.2",
         "jsonwebtoken": "^9.0.2",
         "jwks-rsa": "^3.2.0",
