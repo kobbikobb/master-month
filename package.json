@@ -22,8 +22,8 @@
         "typescript": "^5"
     },
     "dependencies": {
-        "@aws-sdk/client-dynamodb": "^3.934.0",
-        "@aws-sdk/lib-dynamodb": "^3.934.0",
+        "@aws-sdk/client-dynamodb": "^3.995.0",
+        "@aws-sdk/lib-dynamodb": "^3.995.0",
         "ansis": "^4.2.0",
         "aws-sdk-client-mock": "^4.1.0",
         "sst": "^3"
